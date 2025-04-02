@@ -10,7 +10,6 @@ title: Home
     <img src="assets/headshot.jpeg" alt="Rishi Desai's Headshot" class="w-56 mr-5">
     <div>
         <h1 class="text-red-900 text-3xl mt-0">Rishi Desai</h1>
-        <p class="my-1">ML Engineer</p>
         <p>
             <a href="https://github.com/RishiDesai" class="text-red-900 no-underline mr-2">Github</a> /&nbsp;
             <a href="https://www.linkedin.com/in/rishi-desai1/" class="text-red-900 no-underline mr-2">LinkedIn</a>
