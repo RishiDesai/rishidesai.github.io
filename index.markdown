@@ -7,7 +7,7 @@ title: Home
 ---
 
 <div class="flex mb-8 pb-5 border-b border-gray-200">
-    <img src="assets/headshot.jpeg" alt="Rishi Desai's Headshot" class="w-64 mr-5">
+    <img src="assets/headshot.jpeg" alt="Rishi Desai's Headshot" class="w-56 mr-5">
     <div>
         <h1 class="text-red-900 text-3xl mt-0">Rishi Desai</h1>
         <p class="my-1">ML Engineer</p>
@@ -36,11 +36,11 @@ title: Home
 
 <section id="publications" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl mb-4">Publications</h2>
-    <div class="mb-5 flex">
+    <div class="mb-5 flex border-b border-dotted border-gray-200 pb-5">
         <img src="assets/aistats24.gif" alt="Publication 1 Image" class="w-48 h-36 object-cover mr-4">
         <div>
             <h3 class="text-xl font-medium">Privacy-Constrained Policies via Mutual Information Regularized Policy Gradients</h3>
-            <p><strong>Chris Cundy*</strong>, <strong>Rishi Desai*</strong>, and Stefano Ermon</p>
+            <p>Chris Cundy*, <strong>Rishi Desai*</strong>, and Stefano Ermon</p>
             <p>AISTATS 2024</p>
             <p>
                 <a href="https://proceedings.mlr.press/v238/cundy24a/cundy24a.pdf" class="text-red-900 no-underline mr-2">paper</a>
@@ -48,7 +48,7 @@ title: Home
         </div>
     </div>
     
-    <div class="mb-5 flex">
+    <div class="mb-5 flex border-b border-dotted border-gray-200 pb-5">
         <img src="assets/iccv21.gif" alt="Publication 2 Image" class="w-48 h-36 object-cover mr-4">
         <div>
             <h3 class="text-xl font-medium">Detecting Human-Object Relationships in Videos</h3>
@@ -60,7 +60,7 @@ title: Home
         </div>
     </div>
     
-    <div class="mb-5 flex">
+    <div class="mb-5 flex border-b border-dotted border-gray-200 pb-5">
         <img src="assets/cvpr21.png" alt="Publication 3 Image" class="w-48 h-36 object-cover mr-4">
         <div>
             <h3 class="text-xl font-medium">Home Action Genome: Cooperative Compositional Action Understanding</h3>
