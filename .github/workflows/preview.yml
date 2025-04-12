@@ -1,0 +1,46 @@
+name: Deploy PR previews
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency: preview-${{ github.ref }}
+
+# Add permissions for GitHub token
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Install and Build
+        if: github.event.action != 'closed'
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          bundle install
+          # Build with a special baseurl for the PR preview
+          JEKYLL_ENV=production bundle exec jekyll build --baseurl="/pr-preview/pr-$PR_NUMBER"
+
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./_site/
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Specify the umbrella directory to match the baseurl path
+          umbrella-dir: pr-preview 
