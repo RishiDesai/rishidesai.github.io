@@ -36,6 +36,23 @@ jobs:
           bundle install
           # Build with a special baseurl for the PR preview
           JEKYLL_ENV=production bundle exec jekyll build --baseurl="/pr-preview/pr-$PR_NUMBER"
+          
+          # Add a comment to the PR with the preview URL
+          echo "Preview URL: https://rishidesai.github.io/pr-preview/pr-$PR_NUMBER"
+          
+      - name: Comment PR
+        if: github.event.action != 'closed'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            github.rest.issues.createComment({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚀 PR Preview deployed at: https://rishidesai.github.io/pr-preview/pr-${prNumber}/`
+            });
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
