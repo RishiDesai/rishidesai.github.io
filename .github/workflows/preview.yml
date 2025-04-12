@@ -14,6 +14,7 @@ concurrency: preview-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
+  deployments: write
 
 jobs:
   deploy-preview:
@@ -21,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -37,10 +40,17 @@ jobs:
           # Build with a special baseurl for the PR preview
           JEKYLL_ENV=production bundle exec jekyll build --baseurl="/pr-preview/pr-$PR_NUMBER"
           
-          # Add a comment to the PR with the preview URL
-          echo "Preview URL: https://rishidesai.github.io/pr-preview/pr-$PR_NUMBER"
+      - name: Deploy PR Preview
+        if: github.event.action != 'closed'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: _site
+          target-folder: pr-preview/pr-${{ github.event.number }}
+          clean: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
           
-      - name: Comment PR
+      - name: Comment on PR
         if: github.event.action != 'closed'
         uses: actions/github-script@v6
         with:
@@ -53,11 +63,17 @@ jobs:
               repo: context.repo.repo,
               body: `🚀 PR Preview deployed at: https://rishidesai.github.io/pr-preview/pr-${prNumber}/`
             });
-
-      - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
+            
+      - name: Clean up deployment
+        if: github.event.action == 'closed'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          source-dir: ./_site/
+          folder: empty
+          target-folder: pr-preview/pr-${{ github.event.number }}
+          clean: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          # Specify the umbrella directory to match the baseurl path
-          umbrella-dir: pr-preview 
+          branch: gh-pages
+          
+      - name: Create empty directory for cleanup
+        if: github.event.action == 'closed'
+        run: mkdir -p empty 
