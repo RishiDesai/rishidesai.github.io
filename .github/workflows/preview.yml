@@ -14,6 +14,7 @@ concurrency: preview-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
+  deployments: write
 
 jobs:
   deploy-preview:
@@ -37,10 +38,16 @@ jobs:
           # Build with a special baseurl for the PR preview
           JEKYLL_ENV=production bundle exec jekyll build --baseurl="/pr-preview/pr-$PR_NUMBER"
           
-          # Add a comment to the PR with the preview URL
-          echo "Preview URL: https://rishidesai.github.io/pr-preview/pr-$PR_NUMBER"
+      - name: Deploy to GitHub Pages
+        if: github.event.action != 'closed'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          destination_dir: pr-preview/pr-${{ github.event.number }}
+          keep_files: false
           
-      - name: Comment PR
+      - name: Comment on PR
         if: github.event.action != 'closed'
         uses: actions/github-script@v6
         with:
@@ -53,11 +60,16 @@ jobs:
               repo: context.repo.repo,
               body: `🚀 PR Preview deployed at: https://rishidesai.github.io/pr-preview/pr-${prNumber}/`
             });
-
-      - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
+            
+      - name: Clean up deployment
+        if: github.event.action == 'closed'
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          source-dir: ./_site/
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # Specify the umbrella directory to match the baseurl path
-          umbrella-dir: pr-preview 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./empty
+          destination_dir: pr-preview/pr-${{ github.event.number }}
+          keep_files: false
+          
+      - name: Create empty directory for cleanup
+        if: github.event.action == 'closed'
+        run: mkdir -p ./empty 
