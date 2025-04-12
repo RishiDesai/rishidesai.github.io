@@ -30,12 +30,17 @@ jobs:
 
       - name: Install and Build
         if: github.event.action != 'closed'
+        env:
+          PR_NUMBER: ${{ github.event.number }}
         run: |
           bundle install
-          bundle exec jekyll build
+          # Build with a special baseurl for the PR preview
+          JEKYLL_ENV=production bundle exec jekyll build --baseurl="/pr-preview/pr-$PR_NUMBER"
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ./_site/
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Specify the umbrella directory to match the baseurl path
+          umbrella-dir: pr-preview 
