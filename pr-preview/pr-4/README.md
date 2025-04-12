@@ -1,1 +1,0 @@
-# rishidesai.github.io
