@@ -7,7 +7,8 @@ description: >-
 
 # Important: let GitHub Actions provide the baseurl during build
 baseurl: "" 
-url: "" # Leave blank so it works both on GitHub Pages and previews
+url: "https://rishidesai.github.io" # The domain part of your site URL
+# baseurl is blank for main site but will be /pr-preview/pr-XX for previews
 
 twitter_username: rishi_desai2
 github_username: rishidesai
