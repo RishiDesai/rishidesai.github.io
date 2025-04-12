@@ -6,8 +6,6 @@ date: 2025-04-01
 
 # Article One
 
-This is a placeholder article that will be filled in later.
-
 ## Introduction
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
