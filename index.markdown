@@ -9,10 +9,11 @@ title: Home
 <div class="flex mb-8 pb-5 border-b border-gray-200">
     <img src="{{ site.baseurl }}/assets/headshot.jpeg" alt="Rishi Desai's Headshot" class="w-56 mr-5">
     <div>
-        <h1 class="text-red-900 text-3xl mt-0">Rishi Desai</h1>
-        <p>
-            <a href="https://github.com/RishiDesai" class="text-red-900 no-underline mr-2">Github</a> /&nbsp;
-            <a href="https://www.linkedin.com/in/rishi-desai1/" class="text-red-900 no-underline mr-2">LinkedIn</a>
+        <h1 class="text-black text-3xl mt-0 mb-3">Rishi Desai</h1>
+        <p class="mt-3">
+            <a href="https://x.com/rishi_desai2" class="text-black no-underline mr-4 hover:text-red-900 transition-colors duration-150" aria-label="Twitter"><i class="fab fa-x-twitter fa-lg"></i></a>
+            <a href="https://github.com/RishiDesai" class="text-black no-underline mr-4 hover:text-red-900 transition-colors duration-150" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+            <a href="https://www.linkedin.com/in/rishi-desai1/" class="text-black no-underline mr-4 hover:text-red-900 transition-colors duration-150" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
         </p>
     </div>
 </div>
@@ -22,16 +23,16 @@ title: Home
     <p>...</p>
 </section>
 
-<section id="posts" class="mb-10 pb-5 border-b border-gray-200">
+<!-- <section id="posts" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl mb-4">Posts</h2>
     <div class="mb-5">
         <h3 class="text-xl font-medium">
-            <a href="{{ site.baseurl }}/posts/article-one" class="text-red-900 no-underline">Article One</a>
+            <a href="{{ site.baseurl }}/posts/article-one" class="text-black no-underline">Article One</a>
         </h3>
         <p class="text-gray-600">April 1, 2025</p>
         <p>....</p>
     </div>
-</section>
+</section> -->
 
 <section id="publications" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl mb-4">Publications</h2>
@@ -42,7 +43,7 @@ title: Home
             <p>Chris Cundy*, <strong>Rishi Desai*</strong>, and Stefano Ermon</p>
             <p>AISTATS 2024</p>
             <p>
-                <a href="https://proceedings.mlr.press/v238/cundy24a/cundy24a.pdf" class="text-red-900 no-underline mr-2">paper</a>
+                <a href="https://proceedings.mlr.press/v238/cundy24a/cundy24a.pdf" class="text-red-900 no-underline mr-2 hover:underline" >paper</a>
             </p>
         </div>
     </div>
@@ -54,7 +55,7 @@ title: Home
             <p>Jingwei Ji, <strong>Rishi Desai</strong>, Juan Carlos Niebles</p>
             <p>ICCV 2021</p>
             <p>
-                <a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Ji_Detecting_Human-Object_Relationships_in_Videos_ICCV_2021_paper.pdf" class="text-red-900 no-underline mr-2">paper</a>
+                <a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Ji_Detecting_Human-Object_Relationships_in_Videos_ICCV_2021_paper.pdf" class="text-red-900 no-underline mr-2 hover:underline" >paper</a>
             </p>
         </div>
     </div>
@@ -66,8 +67,8 @@ title: Home
             <p>Nishant Rai, Haofeng Chen, Jingwei Ji, <strong>Rishi Desai</strong>, Kazuki Kozuka, Shun Ishizaka, Ehsan Adeli, Juan Carlos Niebles</p>
             <p>CVPR 2021</p>
             <p>
-                <a href="https://arxiv.org/pdf/2105.05226.pdf" class="text-red-900 no-underline mr-2">paper</a> /&nbsp; 
-                <a href="https://homeactiongenome.org/" class="text-red-900 no-underline mr-2">project</a>
+                <a href="https://arxiv.org/pdf/2105.05226.pdf" class="text-red-900 no-underline mr-2 hover:underline" >paper</a> /&nbsp; 
+                <a href="https://homeactiongenome.org/" class="text-red-900 no-underline mr-2 hover:underline" >project</a>
             </p>
         </div>
     </div>
@@ -79,7 +80,7 @@ title: Home
             <p><strong>Rishi Desai</strong>, William JR Longabaugh, Wayne Hayes</p>
             <p>Recent Advances in Biological Network Analysis, Springer, 2021</p>
             <p>
-                <a href="https://link.springer.com/chapter/10.1007/978-3-030-57173-3_4" class="text-red-900 no-underline mr-2">paper</a> 
+                <a href="https://link.springer.com/chapter/10.1007/978-3-030-57173-3_4" class="text-red-900 no-underline mr-2 hover:underline" >paper</a> 
             </p>
         </div>
     </div>
