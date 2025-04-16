@@ -9,33 +9,34 @@ title: Home
 <div class="flex mb-8 pb-5 border-b border-gray-200">
     <img src="{{ site.baseurl }}/assets/headshot.jpeg" alt="Rishi Desai's Headshot" class="w-56 mr-5">
     <div>
-        <h1 class="text-black text-3xl mt-0 mb-3">Rishi Desai</h1>
+        <h1 class="text-black text-3xl font-semibold mt-0 mb-3">Rishi Desai</h1>
         <p class="mt-3">
             <a href="https://x.com/rishi_desai2" class="text-black no-underline mr-4 hover:text-red-900 transition-colors duration-150" aria-label="Twitter"><i class="fab fa-x-twitter fa-lg"></i></a>
             <a href="https://github.com/RishiDesai" class="text-black no-underline mr-4 hover:text-red-900 transition-colors duration-150" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
             <a href="https://www.linkedin.com/in/rishi-desai1/" class="text-black no-underline mr-4 hover:text-red-900 transition-colors duration-150" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+            <a href="mailto:rdesai2@alumni.stanford.edu" class="text-black no-underline mr-4 hover:text-red-900 transition-colors duration-150" aria-label="Email"><i class="fas fa-envelope fa-lg"></i></a>
         </p>
     </div>
 </div>
 
 <section id="about" class="mb-10 pb-5 border-b border-gray-200">
-    <h2 class="text-2xl mb-4">About me</h2>
-    <p>...</p>
+    <h2 class="text-2xl font-medium mb-4">About</h2>
+    <p>I'm an engineer based in San Francisco. Previously, I graduated from Stanford with a BS and MS in Computer Science.</p>
 </section>
 
-<!-- <section id="posts" class="mb-10 pb-5 border-b border-gray-200">
-    <h2 class="text-2xl mb-4">Posts</h2>
+<section id="posts" class="mb-10 pb-5 border-b border-gray-200">
+    <h2 class="text-2xl font-medium mb-4">Posts</h2>
     <div class="mb-5">
         <h3 class="text-xl font-medium">
-            <a href="{{ site.baseurl }}/posts/article-one" class="text-black no-underline">Article One</a>
+            <a href="/posts/face-enhancement-techniques/" class="text-red-900 no-underline">Fixing Face Consistency in GPT-4o Image Gen</a>
         </h3>
-        <p class="text-gray-600">April 1, 2025</p>
-        <p>....</p>
+        <p class="text-gray-600">April 17, 2025</p>
+        <p>A guide to enhancing faces in GPT-4o generated images.</p>
     </div>
-</section> -->
+</section>
 
 <section id="publications" class="mb-10 pb-5 border-b border-gray-200">
-    <h2 class="text-2xl mb-4">Publications</h2>
+    <h2 class="text-2xl font-medium mb-4">Publications</h2>
     <div class="mb-5 flex border-b border-dotted border-gray-200 pb-5">
         <img src="{{ site.baseurl }}/assets/aistats24.gif" alt="Publication 1 Image" class="w-48 h-36 object-cover mr-4">
         <div>

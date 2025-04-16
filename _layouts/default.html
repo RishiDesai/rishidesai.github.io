@@ -4,23 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} - Rishi Desai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <base href="{{ site.baseurl }}/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    typography: {
+                        DEFAULT: {
+                            css: {
+                                maxWidth: 'none',
+                            },
+                        },
+                    },
+                },
+            },
+            plugins: [
+                function({ addBase, theme }) {
+                    addBase({
+                        'h1': { fontSize: theme('fontSize.2xl'), fontWeight: theme('fontWeight.bold') },
+                        'h2': { fontSize: theme('fontSize.xl'), fontWeight: theme('fontWeight.bold') },
+                        'h3': { fontSize: theme('fontSize.lg'), fontWeight: theme('fontWeight.bold') },
+                        'h4': { fontSize: theme('fontSize.base'), fontWeight: theme('fontWeight.semibold') },
+                        'a': { color: theme('colors.blue.600'), textDecoration: 'underline' },
+                        'p': { marginBottom: theme('spacing.2') },
+                        '#about p, #posts p': { marginBottom: theme('spacing.4') },
+                        'ul, ol': { paddingLeft: theme('spacing.5'), marginBottom: theme('spacing.4') },
+                        'li': { marginBottom: theme('spacing.2') },
+                        'blockquote': { 
+                            borderLeftWidth: '4px',
+                            borderLeftColor: theme('colors.gray.300'),
+                            paddingLeft: theme('spacing.4'),
+                            fontStyle: 'italic',
+                            marginBottom: theme('spacing.4')
+                        },
+                    })
+                }
+            ],
+        }
+    </script>
+    <style>
+        ul {
+            list-style-type: disc !important;
+            margin-left: 1.5em !important;
+            padding-left: 1em !important;
+        }
+        ol {
+            list-style-type: decimal !important;
+            margin-left: 1.5em !important;
+            padding-left: 1em !important;
+        }
+        li {
+            display: list-item !important;
+        }
+        
+        /* Code block styling */
+        code {
+            font-size: 0.9em !important;
+            padding: 0.2em 0.4em !important;
+            border-radius: 4px !important;
+            background-color: #f5f5f5 !important;
+        }
+        
+        pre {
+            margin: 1em 0 !important;
+            padding: 1em !important;
+            background-color: #f5f5f5 !important;
+            border-radius: 6px !important;
+            overflow-x: auto !important;
+        }
+        
+        pre code {
+            padding: 0 !important;
+            background-color: transparent !important;
+            font-size: 0.85em !important;
+            line-height: 1.5 !important;
+        }
+        
+        /* Headings scroll margin to account for fixed header */
+        h1, h2, h3, h4, h5, h6 {
+            scroll-margin-top: 5rem;
+        }
+        
+        /* Publications section specific styling */
+        #publications p {
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+    </style>
+    <link rel="stylesheet" href="/assets/css/custom.css">
 </head>
 <body class="font-sans m-0 p-0 leading-relaxed">
     <header class="bg-red-900 py-3 w-full fixed top-0 z-50 left-0">
-        <div class="mx-auto px-5 flex justify-between items-center" style="max-width: 61rem;">
+        <div class="max-w-[61rem] mx-auto px-5 flex justify-between items-center">
             <h1 class="m-0 text-white text-2xl font-normal">
-                <a href="{{ site.baseurl }}/" class="text-white no-underline">Rishi Desai</a>
+                <a href="/" class="text-white no-underline">Rishi Desai</a>
             </h1>
             <nav>
-                <a href="{{ site.baseurl }}/" class="text-white no-underline mx-4 text-lg">Home</a>
+                <a href="/" class="text-white no-underline mx-4 text-lg">Home</a>
             </nav>
         </div>
     </header>
 
-    <main class="mx-auto p-5 mt-16" style="max-width: 61rem;">
+    <main class="max-w-[61rem] mx-auto p-5 mt-16">
         {{ content }}
     </main>
 </body>

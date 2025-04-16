@@ -1,0 +1,221 @@
+<!-- Image Comparer Component -->
+<style>
+.image-compare-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+.image-compare-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.image-compare-before,
+.image-compare-after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image-compare-before {
+  clip-path: inset(0 50% 0 0);
+  z-index: 2;
+}
+
+.image-compare-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  width: 2px;
+  background: #fff;
+  cursor: ew-resize;
+  z-index: 3;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.image-compare-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.image-compare-handle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Container that maintains image aspect ratio */
+.image-compare-aspect {
+  position: relative;
+  height: 0;
+  width: 100%;
+  /* Set a default min-height to ensure visibility even while loading */
+  min-height: 300px; 
+  background-color: #f0f0f0;
+}
+
+.image-compare-text-left {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: red;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 2px 5px;
+  border-radius: 3px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.image-compare-text-right {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: red;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 2px 5px;
+  border-radius: 3px;
+  z-index: 5;
+  pointer-events: none;
+}
+</style>
+
+<div class="image-compare-wrapper" 
+  style="width: {{ include.width | default: '100%' }}; {% if include.max_width %}max-width: {{ include.max_width }};{% endif %}">
+  <div class="image-compare-aspect">
+    <div class="image-compare-after">
+      <img src="{{ include.after_image }}" alt="{{ include.after_alt | default: 'After' }}" loading="eager">
+    </div>
+    <div class="image-compare-before">
+      <img src="{{ include.before_image }}" alt="{{ include.before_alt | default: 'Before' }}" loading="eager">
+    </div>
+    {% if include.before_fed %}
+    <div class="image-compare-text-left">{{ include.before_fed }}</div>
+    {% endif %}
+    {% if include.after_fed %}
+    <div class="image-compare-text-right">{{ include.after_fed }}</div>
+    {% endif %}
+    <div class="image-compare-line">
+      <div class="image-compare-handle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const wrappers = document.querySelectorAll('.image-compare-wrapper');
+  
+  wrappers.forEach(wrapper => {
+    const aspectContainer = wrapper.querySelector('.image-compare-aspect');
+    const before = wrapper.querySelector('.image-compare-before');
+    const line = wrapper.querySelector('.image-compare-line');
+    const beforeImg = before.querySelector('img');
+    const afterImg = wrapper.querySelector('.image-compare-after img');
+    let isDragging = false;
+    
+    // Function to set aspect ratio based on loaded image
+    function setAspectRatio(img) {
+      if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+        const ratio = (img.naturalHeight / img.naturalWidth) * 100;
+        aspectContainer.style.paddingBottom = ratio + '%';
+        // Remove min-height once we have proper dimensions
+        aspectContainer.style.minHeight = 'auto';
+      }
+    }
+    
+    // Try to set aspect ratio for both images
+    function trySetAspectRatio() {
+      if (beforeImg.complete && beforeImg.naturalHeight > 0) {
+        setAspectRatio(beforeImg);
+        return true;
+      }
+      
+      if (afterImg.complete && afterImg.naturalHeight > 0) {
+        setAspectRatio(afterImg);
+        return true;
+      }
+      
+      return false;
+    }
+    
+    // Try immediately in case images are already loaded
+    if (!trySetAspectRatio()) {
+      // Set up event listeners for both images
+      beforeImg.addEventListener('load', function() {
+        setAspectRatio(this);
+      });
+      
+      afterImg.addEventListener('load', function() {
+        setAspectRatio(this);
+      });
+    }
+    
+    function getPosition(event) {
+      const rect = wrapper.getBoundingClientRect();
+      let clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+      let position = ((clientX - rect.left) / rect.width) * 100;
+      return Math.min(Math.max(position, 0), 100);
+    }
+    
+    function onMove(event) {
+      if (!isDragging) return;
+      event.preventDefault();
+      const position = getPosition(event);
+      before.style.clipPath = `inset(0 ${100-position}% 0 0)`;
+      line.style.left = `${position}%`;
+    }
+    
+    wrapper.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      onMove(e);
+    });
+    
+    wrapper.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      onMove(e);
+    }, { passive: false });
+    
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove, { passive: false });
+    
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+    
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+  });
+});
+
+// Fallback initialization for browsers that might have missed DOMContentLoaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  setTimeout(function() {
+    const event = document.createEvent('Event');
+    event.initEvent('DOMContentLoaded', true, true);
+    document.dispatchEvent(event);
+  }, 100);
+}
+</script> 

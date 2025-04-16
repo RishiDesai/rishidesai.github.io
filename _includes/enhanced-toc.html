@@ -1,0 +1,148 @@
+<div id="enhanced-toc" class="fixed w-64 p-5 overflow-y-auto max-h-screen pt-24 pb-10 hidden md:block">
+    <h3 class="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">Contents</h3>
+    <nav id="toc-nav" class="toc-nav">
+        <ul id="toc-list" class="space-y-1 text-sm"></ul>
+    </nav>
+</div>
+
+<style>
+    #enhanced-toc {
+        /* Position to the left of the content */
+        left: calc(50% - 680px);
+        max-width: 280px;
+        z-index: 10;
+    }
+    
+    /* Ensure the ToC doesn't overlap with content on medium screens */
+    @media (max-width: 1620px) {
+        #enhanced-toc {
+            left: 20px;
+        }
+    }
+    
+    /* Hide ToC on mobile screens */
+    @media (max-width: 768px) {
+        #enhanced-toc {
+            display: none;
+        }
+    }
+    
+    .toc-link {
+        display: block;
+        padding: 0.35em 0.5em;
+        margin: 0.2em 0;
+        color: #6b7280;
+        border-left: 2px solid transparent;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        border-radius: 0 4px 4px 0;
+        line-height: 1.4;
+    }
+    
+    .toc-link:hover {
+        color: #374151;
+        background-color: rgba(243, 244, 246, 0.7);
+        border-left-color: #d1d5db;
+    }
+    
+    .toc-link.active {
+        color: #111827;
+        border-left-color: #ef4444;
+        background-color: rgba(243, 244, 246, 0.7);
+        font-weight: 500;
+    }
+    
+    /* Styling for hierarchy */
+    .toc-link-h1 {
+        font-weight: 700;
+        font-size: 1.1em;
+        color: #111827;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.35em;
+    }
+    
+    .toc-link-h2 {
+        font-weight: 600;
+        margin-top: 0.75em;
+        color: #4b5563;
+    }
+    
+    .toc-link-h3 {
+        padding-left: 1.5em;
+        font-size: 0.95em;
+        position: relative;
+    }
+    
+    .toc-link-h3::before {
+        content: '';
+        position: absolute;
+        left: 0.6em;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background-color: #e5e7eb;
+    }
+    
+    .toc-link-h4 {
+        padding-left: 2.5em;
+        font-size: 0.9em;
+        position: relative;
+        color: #6b7280;
+    }
+    
+    .toc-link-h4::before {
+        content: '';
+        position: absolute;
+        left: 1.5em;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background-color: #e5e7eb;
+    }
+    
+    /* Special styling for H4 headings directly under H1 */
+    .toc-link-h4-under-h1 {
+        padding-left: 1.5em;
+        color: #4b5563;
+    }
+    
+    .toc-link-h4-under-h1::before {
+        left: 0.6em;
+    }
+    
+    /* Group styling */
+    .toc-section {
+        margin-bottom: 0.75em;
+    }
+    
+    /* Fix for list styling within ToC */
+    #toc-list {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        list-style-type: none !important;
+    }
+    
+    #toc-list li {
+        list-style-type: none !important;
+    }
+    
+    /* Remove bullet styling */
+    .toc-child-item {
+        position: relative;
+        list-style-type: none !important;
+    }
+    
+    /* Remove the bullet point */
+    .toc-child-item::before {
+        content: none;
+    }
+    
+    /* Style nested lists for compatibility with new JS */
+    .toc-nested-list, .toc-nested-list-h4 {
+        list-style-type: none !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+</style> 

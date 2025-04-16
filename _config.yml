@@ -19,3 +19,9 @@ domain: rishidesai.github.io
 theme: minima
 plugins:
   - jekyll-feed
+
+# Permalink structure (removes date from URLs)
+permalink: /posts/:title/
+
+# Include posts with future dates
+future: true
