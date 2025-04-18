@@ -21,7 +21,7 @@ title: Home
 
 <section id="about" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl font-medium mb-4">About</h2>
-    <p>I'm a machine learning engineer based in San Francisco. I previously graduated from Stanford with a BS and MS in computer science. Recently, I've been exploring character consistency in image generation. If you're working in a similar area, please reach out— I'm always happy to chat!</p>
+    <p>I'm an AI engineer based in San Francisco. I previously graduated from Stanford with a BS and MS in computer science. Recently, I've been exploring character consistency in image generation. If you're working in a similar area, please reach out— I'm always happy to chat!</p>
 </section>
 
 <section id="posts" class="mb-10 pb-5 border-b border-gray-200">
@@ -33,9 +33,9 @@ title: Home
                 <a href="/posts/face-enhancement-techniques/" class="text-red-900 no-underline hover:underline">Fixing Face Consistency in GPT-4o Image Gen</a>
             </h3>
             <p class="text-gray-600">April 18, 2025</p>
-            <p>A guide to enhancing faces in GPT-4o generated images.</p>
+            <p>A guide to enhancing faces in AI generated images.</p>
             <p>
-                <a href="/" class="text-red-900 no-underline mr-2 hover:underline">demo</a>
+                <a href="https://huggingface.co/spaces/rdesai2/FaceEnhance" class="text-red-900 no-underline mr-2 hover:underline">demo</a>
             </p>
         </div>
     </div>
