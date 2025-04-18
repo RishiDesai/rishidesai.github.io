@@ -24,7 +24,7 @@ title: Home
     <p>I'm an AI engineer based in San Francisco. I previously graduated from Stanford with a BS and MS in computer science. Recently, I've been exploring character consistency in image generation. If you're working in a similar area, please reach out— I'm always happy to chat!</p>
 </section>
 
-<section id="posts" class="mb-10 pb-5 border-b border-gray-200">
+<!-- <section id="posts" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl font-medium mb-4">Posts</h2>
     <div class="mb-5 flex">
         <img src="{{ site.baseurl }}/assets/face-enh.gif" alt="Comparison GIF" class="w-48 h-36 object-cover object-top mr-4">
@@ -39,7 +39,7 @@ title: Home
             </p>
         </div>
     </div>
-</section>
+</section> -->
 
 <section id="publications" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl font-medium mb-4">Publications</h2>
