@@ -125,10 +125,20 @@ Malformed faces are a persistent challenge in image generation. Traditional face
 
 Face swapping the target image's face with a reference face can be a great option, especially for front-facing images. However, it can struggle with facial expressions, varied perspectives, and lighting. Unlike face swapping, which replaces facial pixels directly, face enhancement regenerates the image with guided facial features via latent diffusion. This provides far more granular control over facial consistency.
 
-<img src="/assets/images/face-enhancement/diagram.jpg" alt="Face Enhancement Pipeline Diagram" style="width: 100%; max-width: 550px; display: block; margin: 20px auto;">
 
 #### Preprocessing
 We need a high quality forward facing image of our character. [AutoCropFace](https://github.com/liusida/ComfyUI-AutoCropFaces) extracts and crops the face, but the image is blurry and needs upscaling. [ESRGAN](https://github.com/xinntao/ESRGAN) is a simple approach that provides a good balance of speed and fidelity. It won't introduce many new details like skin textures or hair styles. [fal.ai](https://fal.ai/models/fal-ai/esrgan) has a convenient endpoint for face upscaling.
+
+{% include image-comparer.html 
+  before_image="/assets/images/face-enhancement/woman_face_cropped.png"
+  after_image="/assets/images/face-enhancement/woman_face.jpg"
+  before_alt="Cropped Face Image"
+  after_alt="Upscaled Face Image"
+  before_fed="Original"
+  after_fed="Upscaled"
+  width="80%"
+  max_width="400px"
+%}
 
 We also need a detailed image caption of the target image. GPT-4o is the best model for captioning, but it often refuses to caption images of people it recognizes. [Florence2](https://huggingface.co/microsoft/Florence-2-large) is the best open-source image caption model, and it never refuses to answer.
 
@@ -139,10 +149,12 @@ Note that Insightface is optimized for the faces of real people. It's often unab
 
 While PuLID-Flux excels at generating new images from text prompts and a reference face, our task is different. We already have generated images, and we need to enhance their facial quality using our high-quality face reference.
 
-#### Implementation
-The [ComfyUI](https://github.com/comfyanonymous/ComfyUI) community provides an unobvious solution through the [ComfyUI-PuLID-Flux](https://github.com/balazik/ComfyUI-PuLID-Flux) custom node. While it's primarily intended as a PuLID-Flux wrapper, its implementation allows us to do much more. This node patches the forward pass of Flux to inject the face ID embeddings into the diffusion process. More specifically, it first uses InsightFace and EVA-CLIP to detect the face and extract the face ID embedding. Then with a special encoder it injects the face ID features into the diffusion process at specific steps. 
+<img src="/assets/images/face-enhancement/diagram.jpg" alt="Face Enhancement Pipeline Diagram" style="width: 100%; max-width: 550px; display: block; margin: 20px auto;">
 
-We can use the patched Flux model in arbitrary ways within ComfyUI because of the flexibility in model inputs and outputs (in contrast to HuggingFace's [diffusers](https://huggingface.co/docs/diffusers/en/index)). Hence, we can leverage it with tiled ControlNet to improve the face quality in any image. We set the positive prompt to our image caption to guide the ControlNet to regenerate the entire image, while enforcing facial consistency based on the reference face embedding. We keep the ControlNet strength high (0.7-1.0), so generation follows the control image strictly. The ID weight in PuLID controls how the level of face ID preservation in the diffusion process. I found the sweet spot for ID weight between 0.6 and 0.8; values higher than 0.8 tend to smooth out facial expressions in the target image.
+#### Implementation
+The [ComfyUI](https://github.com/comfyanonymous/ComfyUI) community provides an unobvious solution through the [ComfyUI-PuLID-Flux](https://github.com/balazik/ComfyUI-PuLID-Flux) custom node. While it's primarily intended as a PuLID-Flux wrapper, its implementation allows us to do much more. This node patches the forward pass of Flux to inject the face ID embeddings into the diffusion process. More specifically, it uses InsightFace and EVA-CLIP to detect the face and extract the face ID embedding, which is then injected into the diffusion process at specific steps. 
+
+We can use the patched Flux model in arbitrary ways within ComfyUI because of the flexibility in model inputs and outputs (in contrast to HuggingFace's [diffusers](https://huggingface.co/docs/diffusers/en/index)). Hence, we can leverage it with tiled ControlNet to improve the face quality in any image. We set the positive prompt to our image caption to guide the ControlNet to regenerate the entire image, while enforcing facial consistency based on the reference face embedding. We keep the ControlNet strength high (0.8-1.0), so generation follows the control image strictly. The ID weight in PuLID controls the level of face ID preservation during generation. I found the sweet spot for ID weight between 0.6 and 0.8; values higher than 0.8 tend to smooth out facial expressions in the target image.
 
 Although PuLID is a popular model in the ComfyUI community, I haven't seen it used in this particular way before. [Mickmumpitz's](https://x.com/mickmumpitz) Flux character consistency workflow is the first I've come across that utilizes ComfyUI-PuLID-Flux specifically for face enhancement. It served as a helpful reference point for building my own workflows.
 
@@ -156,7 +168,7 @@ Productionizing complex ComfyUI workflows with dozens of custom nodes is non-tri
 
 I attempted to replicate the entire ComfyUI workflow in Python using [diffusers](https://huggingface.co/docs/diffusers/en/index) but couldn't match ComfyUI's speed or quality. ComfyUI's strength lies in its custom node ecosystem, enabling complex model modifications and sampling procedures that are challenging to implement in mainstream Python frameworks. My efforts to use ComfyUI custom nodes as libraries with extensive monkey patching were also unsuccessful due to their deep integration with ComfyUI's backend.
 
-My base model is [Flux.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev), ControlNet is [Shakker-Labs ControlNet Union](https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro), and PuLID model is [PuLID-Flux-v0.9.1](https://github.com/ToTheBeginning/PuLID). I'm running Flux at float16 precision on a single L40S GPU with 48 GB VRAM. Face-enhacement takes 45-60 seconds provided the models are loaded into memory.
+My base model is [Flux.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev), ControlNet is [Shakker-Labs ControlNet Union](https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro), and PuLID model is [PuLID-Flux-v0.9.1](https://github.com/ToTheBeginning/PuLID). I'm running Flux at float16 precision on a single L40S GPU with 48 GB VRAM. Face-enhacement takes around 45 seconds provided the models are loaded into memory.
 
 #### Parting Thoughts
 GPT-4o's native image gen is incredibly powerful, but its struggle with facial consistency limits its use for applications like storytelling. By leveraging PuLID-FLux and ControlNet, we can easily enhance the face quality in photorealistic images without sacrifing the background, lighting, or other details. This is a helpful step in making GPT-4o a reliable tool for creating visually coherent, character-consistent images.
