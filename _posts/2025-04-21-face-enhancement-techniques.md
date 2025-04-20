@@ -7,8 +7,7 @@ date: 2025-04-21 00:00:00 -0700
 categories: ai image-processing face-enhancement
 ---
 
-> **Demo Available**: Try face enhancement yourself [here](https://huggingface.co/spaces/rdesai2/FaceEnhance).  
-> **Code Available**: Check out the [code](https://github.com/RishiDesai/FaceEnhance).
+> **Demo Available**: Try face enhancement yourself [here](https://huggingface.co/spaces/rdesai2/FaceEnhance).
 
 The recent release of GPT-4o's native image generation has stunned the AI community. Give it a reference image of a person and ask for a new scene. It nails the pose, outfit, hair, background, and lighting. Everything… except the face. It's almost never quite right — often a little off and sometimes completely unrecognizable.
 
