@@ -37,7 +37,7 @@ This character sheet was generated with [Mickmumpitz's](https://x.com/mickmumpit
   <img src="/assets/images/character-lora/char_sheet.jpg" alt="Character Sheet" width="90%" style="max-width: 800px;">
 </div>
 
-All images are square with resolutions of at least 1024x1024. This is important: *consistent aspect ratios make a noticeable difference in generation quality*. If your dataset contains images of varying dimensions, crop or resize them to match. Furthermore, your training resolution should meet or exceed your target inference resolution. I want HD outputs, so I'll resize the images to 1024x1024.
+All images are square with resolutions of at least 1024x1024. This is important: *inconsistent aspect ratios degrade generation quality*. If your dataset contains images of varying dimensions, crop or resize them to match. Furthermore, your training resolution should meet or exceed your target inference resolution. I want HD outputs, so I'll resize the images to 1024x1024.
 
 
 ### A Template for Captions
@@ -47,15 +47,21 @@ When training a LoRA on Flux, precise and consistent image captions are essentia
 
 I include style (e.g., photorealistic, anime) for completion; although, for style transfer I recommend training a separate style LoRA and chaining it to the character LoRA. Avoid subjective language (e.g., "beautiful", "scary") and references to known characters or real people. Objectivity is key to clear, reliable captions. 
 
-We need a trigger word to our captions to "activate" the LoRA during inference. The placement of the trigger word does not matter as long as you're consistent with it. Do not include inherent features that are constant, such as eye, hair, or skin color, unless it's variable to the character. For example, if your character always has blue eyes - don't mention it in any of the captions! Similarly, if you only want to generate scenes with the character in the same outfit, don't mention the outfit. 
+We need a trigger word to our captions to "activate" the LoRA during inference. Its placement does not matter as long as you're consistent with it; it can be any nonsense word. Do not include inherent features that are constant, such as eye, hair, or skin color, unless it's variable to the character. For example, if your character always has blue eyes - don't mention it in any of the captions! Similarly, if you only want to generate scenes with the character in the same outfit, don't mention the outfit. 
 
 ### Which Tags Should I Include? 
 The template above encompasses all aspects of the scene. But you often don't need this level of detail. If certain elements like clothes, expressions, or style are constant - remove it from the template. Unnecessary fields add noise to the training process.
 
 Some example captions:
 
-- `tr1gger photorealistic, curly shoulder-length hair, black blazer over turtleneck top, hands on hips, neutral expression, urban street with neon signs, bright diffused lighting, front view`
-- `tr1gger photorealistic, curly shoulder-length hair, floral button-up shirt, head tilted down slightly, eyes closed with tense facial muscles, frustrated expression, plain grey background, studio lighting, three-quarters view`
+- `tr1gg3r photorealistic, curly shoulder-length hair, black blazer over turtleneck top, hands on hips, neutral expression, urban street with neon signs, bright diffused lighting, front view`
+- `tr1gg3r photorealistic, curly shoulder-length hair, brown coat with scarf, seated holding a cup, contemplative expression, autumn park with yellow foliage, soft ambient lighting, front view`
+
+
+<div style="display: flex; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap;">
+  <img src="/assets/images/character-lora/woman_ex_1.png" alt="Woman in black blazer" style="width: 30%; max-width: 300px;">
+  <img src="/assets/images/character-lora/woman_ex_2.png" alt="Woman in brown coat" style="width: 30%; max-width: 300px;">
+</div>
 
 ### Generating Captions
 If you're using any LoRA training service, _do not use their auto captioning feature_. They often produce inconsistent tags or natural language descriptions that degrade training quality. 
@@ -69,19 +75,23 @@ With APIs, It's generally infeasible to caption all images in one thread, and mo
 ### Training Configuration
 For my dataset, I found 1000 steps and LoRA rank of 16 provided a good balance between quality and training time. I used a learning rate of 8e-4 and batch size of 1. 
 
-Training at 512x512 resolution dramatically speeds up training time to around 30 minutes, which is great if you can upscale at test time. Otherwise 768x768 is a good middle ground. For my examples, I chose rank 16 and 1024x1024 resolution for the best quality. With a single L40S GPU with 48GB VRAM, the training takes around 60 minutes running Flux.1-dev at bfloat16 precision.
+Training at 512x512 speeds up training time to around 30 minutes, which is great if you can upscale at test time. Otherwise 768x768 is a good middle ground. For my examples, I chose rank 16 and 1024x1024 resolution for the best quality. With a single L40S GPU with 48GB VRAM, the training takes around 60 minutes running Flux.1-dev at bfloat16 precision.
 
 Regardless of your setup, fix the image resolution across your dataset.
 
 # Prompt Optimization
 
-Our prompts must adhere to the same format as the training set captions. Enter prompt optimization. One simple method is to use an LLM: provide all image captions as context and ask it to rewrite your initial prompt to match the structure of the captions. For example, a simple prompt like: 
+Our prompts must adhere to the same format as the training set captions. Enter prompt optimization. A simple method is using an LLM: provide all image captions as context and ask it to rewrite your initial prompt to match the structure of the captions. For example, a simple prompt like: 
 
-`tr1gger riding a bike on a cobblestone street in an Italian town`
+`tr1gg3r riding a bike on a cobblestone street in an Italian town`
 
 can be optimized to 
 
-`tr1gger photorealistic, curly shoulder-length hair, floral button-up shirt and light blue skinny jeans, riding a bicycle, smiling expression, cobblestone street in Italian town, soft afternoon lighting, three-quarter view`
+`tr1gg3r photorealistic, curly shoulder-length hair, floral button-up shirt and light blue skinny jeans, riding a bicycle, smiling expression, cobblestone street in Italian town, soft afternoon lighting, three-quarter view`
+
+<div style="display: flex; justify-content: center; margin: 20px 0;">
+  <img src="/assets/images/character-lora/woman_ex_3.png" alt="Woman riding bicycle in Italian town" style="width: 30%; max-width: 300px;">
+</div>
 
 This allows you to prompt in natural language without any guesswork. Since most prompts are underdetermined, the LLM can intelligently fill in missing details. This simple step gives you significantly more control over the output.
 
@@ -102,7 +112,7 @@ If you prefer a more quantitative way, you can use the Face Embed Distance (FED)
     <p class="simple-prompt">riding a horse on a prairie during sunset</p>
     
     <h5>Optimized Prompt:</h5>
-    <p class="optimized-prompt">tr1gger photorealistic, curly shoulder-length hair, floral button-up shirt, riding a horse, neutral expression, prairie during sunset, warm directional lighting, three-quarter view</p>
+    <p class="optimized-prompt">tr1gg3r photorealistic, curly shoulder-length hair, floral button-up shirt, riding a horse, neutral expression, prairie during sunset, warm directional lighting, three-quarter view</p>
     
     <div class="example-image">
       <img src="/assets/images/character-lora/woman_1.png" alt="Woman riding a horse">
