@@ -27,6 +27,20 @@ title: Home
 <section id="posts" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl font-medium mb-4">Posts</h2>
     <div class="mb-5 flex">
+        <img src="{{ site.baseurl }}/assets/sukuna.png" alt="Sukuna Character Sheet" class="w-48 h-36 object-cover object-top mr-4">
+        <div>
+            <h3 class="text-xl font-medium">
+                <a href="/posts/character-lora/" class="text-red-900 no-underline hover:underline">Unlocking Character LoRAs</a>
+            </h3>
+            <p class="text-gray-600">May 10, 2025</p>
+            <p>A guide for image captioning and prompt optimization.</p>
+            <p>
+                <a href="https://huggingface.co/spaces/rdesai2/LoRACaptioner" class="text-red-900 no-underline mr-2 hover:underline">demo</a> /&nbsp;
+                <a href="https://github.com/RishiDesai/LoRACaptioner" class="text-red-900 no-underline mr-2 hover:underline">code</a>
+            </p>
+        </div>
+    </div>
+    <div class="mb-5 flex">
         <img src="{{ site.baseurl }}/assets/face-enh.gif" alt="Comparison GIF" class="w-48 h-36 object-cover object-top mr-4">
         <div>
             <h3 class="text-xl font-medium">
