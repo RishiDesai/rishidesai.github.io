@@ -12,15 +12,22 @@ kramdown:
 > **Demo Available**: Caption and prompt your LoRAs [here](https://huggingface.co/spaces/rdesai2/LoRACaptioner).
 
 
-You've carefully curated a character sheet of your favorite character, trained a LoRA on Flux, but when you start prompting the results don't look anything like your dataset. It's as if you're using vanilla Flux. 
+You've carefully curated images of favorite character and trained a LoRA, but when you start prompting the results don't look anything like your dataset. A common story in the image gen community...
 
-This is a common story in the image gen community.
+Why is generating images that precisely follow prompts like these so difficult?
 
-I ran into this problem while training LoRAs on Flux. Even with high-quality images the results were disappointing. After investigating, I realized the issue wasn't with the images but the captions. Most guides focus on image curation, but barely discuss how to caption them effectively. 
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 520px; margin: 20px auto;">
+  <img src="/assets/images/character-lora/sukuna_4.png" alt="Sukuna example 4" style="width: 100%; height: auto;">
+  <img src="/assets/images/character-lora/sukuna_5.png" alt="Sukuna example 5" style="width: 100%; height: auto;">
+  <img src="/assets/images/character-lora/sukuna_6.png" alt="Sukuna example 6" style="width: 100%; height: auto;">
+  <img src="/assets/images/character-lora/sukuna_7.png" alt="Sukuna example 7" style="width: 100%; height: auto;">
+</div>
 
-Captioning is poorly understood, barely discussed, and often abstracted away by training services. After extensive experimentation, I've found clear, consistent, and structured captions are essential for training LoRAs that are expressive and reliable.
+I ran into this problem while training LoRAs on Flux. Even with high-quality images the results were disappointing. After investigating, I realized the issue wasn't with the images but with the captions.
 
-In this post, I'll share a straightforward, principled approach to captioning that takes the guesswork out of training character LoRAs.
+Captioning is barely discussed and often abstracted away by LoRA training services. From extensive experimentation, I've found clear, consistent, and structured captions are essential for training expressive and robust LoRAs.
+
+In this post, I'll share a straightforward approach to captioning that takes the guesswork out of training character LoRAs.
 
 # Image Captioning
 
@@ -75,7 +82,7 @@ With APIs, It's generally infeasible to caption all images in one thread, and mo
 ### Training Configuration
 For my dataset, I found 1000 steps and LoRA rank of 16 provided a good balance between quality and training time. I used a learning rate of 8e-4 and batch size of 1. 
 
-Training at 512x512 speeds up training time to around 30 minutes, which is great if you can upscale at test time. Otherwise 768x768 is a good middle ground. For my examples, I chose rank 16 and 1024x1024 resolution for the best quality. With a single L40S GPU with 48GB VRAM, the training takes around 60 minutes running Flux.1-dev at bfloat16 precision.
+Training at 512x512 speeds up training time to around 30 minutes, which is great if you can upscale at test time; otherwise 768x768 is a good middle ground. For my examples, I trained at rank 16 and 1024x1024 resolution for quality. With a single L40S GPU with 48GB VRAM, the training takes around 60 minutes running Flux.1-dev at bfloat16 precision.
 
 Regardless of your setup, fix the image resolution across your dataset.
 
