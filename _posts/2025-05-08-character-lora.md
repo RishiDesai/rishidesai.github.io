@@ -1,9 +1,9 @@
 ---
 layout: post-with-toc
-title: "Unlocking Character LoRAs"
+title: "Unlocking Character LoRAs with Structured Captions"
 description: "A guide for image captioning and prompt optimization"
 author: "Rishi Desai"
-date: 2025-05-10 00:00:00 -0700
+date: 2025-05-08 00:00:00 -0700
 categories: ai image-generation loras flux
 kramdown:
   parse_block_html: true
@@ -23,7 +23,7 @@ Why is generating images that precisely follow prompts like these so difficult?
   <img src="/assets/images/character-lora/sukuna_7.png" alt="Sukuna example 7" style="width: 100%; height: auto;">
 </div>
 
-I ran into this problem while training LoRAs on Flux. Even with high-quality images the results were disappointing. After investigating, I realized the issue wasn't with the images but with the captions.
+I ran into this problem while training LoRAs on Flux. Even with high-quality images the results were disappointing. After investigating, I realized the issue wasn't with the images but the captions.
 
 Captioning is barely discussed and often abstracted away by LoRA training services. From extensive experimentation, I've found clear, consistent, and structured captions are essential for training expressive and robust LoRAs.
 
@@ -31,7 +31,7 @@ In this post, I'll share a straightforward approach to captioning that takes the
 
 # Image Captioning
 
-A LoRA dataset has two parts: images and captions. Since we're training a character LoRA, let's start with a character I generated with Flux.1-dev:
+A LoRA dataset has two parts: images and captions. Since we're training a character LoRA, let's start with a character I generated with (Flux.1-dev)[https://huggingface.co/black-forest-labs/FLUX.1-dev]:
 
 <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0;">
   <img src="/assets/images/face-enhancement/woman_body.png" alt="Full Body Image" style="width: 35%; max-width: 300px;">
