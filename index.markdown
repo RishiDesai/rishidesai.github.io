@@ -7,7 +7,7 @@ title: Home
 ---
 
 <div class="flex mb-8 pb-5 border-b border-gray-200">
-    <img src="{{ site.baseurl }}/assets/headshot.jpeg" alt="Rishi Desai's Headshot" class="w-56 mr-5">
+    <img src="{{ site.baseurl }}/assets/images/main/headshot.jpeg" alt="Rishi Desai's Headshot" class="w-56 mr-5">
     <div>
         <h1 class="text-black text-3xl font-semibold mt-0 mb-3">Rishi Desai</h1>
         <p class="mt-3">
@@ -27,7 +27,7 @@ title: Home
 <section id="posts" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl font-medium mb-4">Posts</h2>
     <div class="mb-5 flex">
-        <img src="{{ site.baseurl }}/assets/sukuna.png" alt="Sukuna Character Sheet" class="w-48 h-36 object-cover object-top mr-4">
+        <img src="{{ site.baseurl }}/assets/images/main/sukuna.png" alt="Sukuna Character Sheet" class="w-48 h-36 object-cover object-top mr-4">
         <div>
             <h3 class="text-xl font-medium">
                 <a href="/posts/character-lora/" class="text-red-900 no-underline hover:underline">Unlocking Character LoRAs with Structured Captions</a>
@@ -41,7 +41,7 @@ title: Home
         </div>
     </div>
     <div class="mb-5 flex">
-        <img src="{{ site.baseurl }}/assets/face-enh.gif" alt="Comparison GIF" class="w-48 h-36 object-cover object-top mr-4">
+        <img src="{{ site.baseurl }}/assets/images/main/face-enh.gif" alt="Comparison GIF" class="w-48 h-36 object-cover object-top mr-4">
         <div>
             <h3 class="text-xl font-medium">
                 <a href="/posts/face-enhancement-techniques/" class="text-red-900 no-underline hover:underline">Fixing Face Consistency in GPT-4o Image Gen</a>
@@ -59,7 +59,7 @@ title: Home
 <section id="publications" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl font-medium mb-4">Publications</h2>
     <div class="mb-5 flex border-b border-dotted border-gray-200 pb-5">
-        <img src="{{ site.baseurl }}/assets/aistats24.gif" alt="Publication 1 Image" class="w-48 h-36 object-cover mr-4">
+        <img src="{{ site.baseurl }}/assets/images/main/aistats24.gif" alt="Publication 1 Image" class="w-48 h-36 object-cover mr-4">
         <div>
             <h3 class="text-xl font-medium">Privacy-Constrained Policies via Mutual Information Regularized Policy Gradients</h3>
             <p>Chris Cundy*, <strong>Rishi Desai*</strong>, and Stefano Ermon</p>
@@ -71,7 +71,7 @@ title: Home
     </div>
     
     <div class="mb-5 flex border-b border-dotted border-gray-200 pb-5">
-        <img src="{{ site.baseurl }}/assets/iccv21.gif" alt="Publication 2 Image" class="w-48 h-36 object-cover mr-4">
+        <img src="{{ site.baseurl }}/assets/images/main/iccv21.gif" alt="Publication 2 Image" class="w-48 h-36 object-cover mr-4">
         <div>
             <h3 class="text-xl font-medium">Detecting Human-Object Relationships in Videos</h3>
             <p>Jingwei Ji, <strong>Rishi Desai</strong>, Juan Carlos Niebles</p>
@@ -83,7 +83,7 @@ title: Home
     </div>
     
     <div class="mb-5 flex border-b border-dotted border-gray-200 pb-5">
-        <img src="{{ site.baseurl }}/assets/cvpr21.png" alt="Publication 3 Image" class="w-48 h-36 object-cover mr-4">
+        <img src="{{ site.baseurl }}/assets/images/main/cvpr21.png" alt="Publication 3 Image" class="w-48 h-36 object-cover mr-4">
         <div>
             <h3 class="text-xl font-medium">Home Action Genome: Cooperative Compositional Action Understanding</h3>
             <p>Nishant Rai, Haofeng Chen, Jingwei Ji, <strong>Rishi Desai</strong>, Kazuki Kozuka, Shun Ishizaka, Ehsan Adeli, Juan Carlos Niebles</p>
@@ -96,7 +96,7 @@ title: Home
     </div>
     
     <div class="mb-5 flex">
-        <img src="{{ site.baseurl }}/assets/visnab.jpg" alt="Publication 4 Image" class="w-48 h-36 object-cover mr-4">
+        <img src="{{ site.baseurl }}/assets/images/main/visnab.jpg" alt="Publication 4 Image" class="w-48 h-36 object-cover mr-4">
         <div>
             <h3 class="text-xl font-medium">BioFabric Visualization of Network Alignments</h3>
             <p><strong>Rishi Desai</strong>, William JR Longabaugh, Wayne Hayes</p>
