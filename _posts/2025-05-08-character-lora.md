@@ -12,7 +12,7 @@ kramdown:
 > **Demo Available**: Caption and prompt your LoRAs [here](https://huggingface.co/spaces/rdesai2/LoRACaptioner).
 
 
-You've carefully curated images of favorite character and trained a LoRA, but when you start prompting the results don't look anything like your dataset. A common story in the image gen community...
+You've carefully curated images of your favorite character and trained a LoRA, but when you start prompting the results don't look anything like your dataset. A common story in the image gen community...
 
 Why is generating images that precisely follow prompts like these so difficult?
 
@@ -25,13 +25,13 @@ Why is generating images that precisely follow prompts like these so difficult?
 
 I ran into this problem while training LoRAs on Flux. Even with high-quality images the results were disappointing. After investigating, I realized the issue wasn't with the images but the captions.
 
-Captioning is barely discussed and often abstracted away by LoRA training services. From extensive experimentation, I've found clear, consistent, and structured captions are essential for training expressive and robust LoRAs.
+Captioning is rarely discussed and often abstracted away by LoRA training services. From extensive experimentation, I've found clear, consistent, and structured captions are essential for training expressive and robust LoRAs.
 
 In this post, I'll share a straightforward approach to captioning that takes the guesswork out of training character LoRAs.
 
 # Image Captioning
 
-A LoRA dataset has two parts: images and captions. Since we're training a character LoRA, let's start with a character I generated with (Flux.1-dev)[https://huggingface.co/black-forest-labs/FLUX.1-dev]:
+A LoRA dataset has two parts: images and captions. Since we're training a character LoRA, let's start with a character I generated with [Flux.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev):
 
 <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0;">
   <img src="/assets/images/face-enhancement/woman_body.png" alt="Full Body Image" style="width: 35%; max-width: 300px;">
@@ -52,9 +52,9 @@ When training a LoRA on Flux, precise and consistent image captions are essentia
 
 `[Trigger Word] [Style], [Notable Visual Features], [Clothing], [Pose], [Expression/Mood], [Background/Setting], [Lighting], [Camera Angle]`
 
-I include style (e.g., photorealistic, anime) for completion; although, for style transfer I recommend training a separate style LoRA and chaining it to the character LoRA. Avoid subjective language (e.g., "beautiful", "scary") and references to known characters or real people. Objectivity is key to clear, reliable captions. 
+I include style (e.g., photorealistic, anime) for completion; however, for style transfer I recommend training a separate style LoRA and chaining it to the character LoRA. Avoid subjective language (e.g., "beautiful", "scary") and references to known characters or real people. Objectivity is key to clear, reliable captions. 
 
-We need a trigger word to our captions to "activate" the LoRA during inference. Its placement does not matter as long as you're consistent with it; it can be any nonsense word. Do not include inherent features that are constant, such as eye, hair, or skin color, unless it's variable to the character. For example, if your character always has blue eyes - don't mention it in any of the captions! Similarly, if you only want to generate scenes with the character in the same outfit, don't mention the outfit. 
+We need a trigger word in our captions to "activate" the LoRA during inference. Its placement does not matter as long as you're consistent with it; it can be any nonsense word. Do not include inherent features that are constant, such as eye, hair, or skin color, unless it's variable to the character. For example, if your character always has blue eyes - don't mention it in any of the captions! Similarly, if you only want to generate scenes with the character in the same outfit, don't mention the outfit. 
 
 ### Which Tags Should I Include? 
 The template above encompasses all aspects of the scene. But you often don't need this level of detail. If certain elements like clothes, expressions, or style are constant - remove it from the template. Unnecessary fields add noise to the training process.
@@ -77,12 +77,12 @@ Instead, use an LLM like GPT-4o to produce the structured set of tags. For consi
 
 Using a single thread with multiple images per message works well inside ChatGPT. However, it's not possible with the GPT-4o API, which refuses to caption images due to privacy concerns. Instead, use open-source models like DeepSeek or Llama 4.
 
-With APIs, It's generally infeasible to caption all images in one thread, and most APIs like together.ai limit the number of images in a single message. The best compromise I found is to use one thread per image category (e.g., expressions, face angles) and caption unrelated images in individual threads.
+With APIs, it's generally infeasible to caption all images in one thread, and most APIs like [together.ai](https://www.together.ai/) limit the number of images in a single message. The best compromise I found is to use one thread per image category (e.g., expressions, face angles) and caption unrelated images in individual threads.
 
 ### Training Configuration
 For my dataset, I found 1000 steps and LoRA rank of 16 provided a good balance between quality and training time. I used a learning rate of 8e-4 and batch size of 1. 
 
-Training at 512x512 speeds up training time to around 30 minutes, which is great if you can upscale at test time; otherwise 768x768 is a good middle ground. For my examples, I trained at rank 16 and 1024x1024 resolution for quality. With a single L40S GPU with 48GB VRAM, the training takes around 60 minutes running Flux.1-dev at bfloat16 precision.
+Training at 512x512 speeds up training time to around 30 minutes, which is great if you can upscale at test time; otherwise 768x768 is a good middle ground. For my examples, I trained at rank 16 and 1024x1024 resolution for quality. With a single L40S GPU with 48GB VRAM, the training run takes around 60 minutes running Flux.1-dev at bfloat16 precision.
 
 Regardless of your setup, fix the image resolution across your dataset.
 
