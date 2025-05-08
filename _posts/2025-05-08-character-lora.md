@@ -5,6 +5,7 @@ description: "A guide for image captioning and prompt optimization"
 author: "Rishi Desai"
 date: 2025-05-08 00:00:00 -0700
 categories: ai image-generation loras flux
+image: /assets/images/main/sukuna.png
 kramdown:
   parse_block_html: true
 ---
