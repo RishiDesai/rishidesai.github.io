@@ -27,13 +27,13 @@ title: Home
 <section id="posts" class="mb-10 pb-5 border-b border-gray-200">
     <h2 class="text-2xl font-medium mb-4">Posts</h2>
     <div class="mb-5 flex">
-        <img src="{{ site.baseurl }}/assets/images/main/sukuna.png" alt="Character Consistency" class="w-48 h-36 object-cover object-top mr-4">
+        <img src="{{ site.baseurl }}/assets/images/main/charforge.jpg" alt="Character Consistency" class="w-48 h-36 object-cover object-top mr-4">
         <div>
             <h3 class="text-xl font-medium">
                 <a href="/posts/character/" class="text-red-900 no-underline hover:underline">CharForge: character consistency with one reference</a>
             </h3>
             <p class="text-gray-600">June 30, 2025</p>
-            <p>A guide for achieving character consistency in image generation from a single reference image.</p>
+            <p>A guide for achieving character consistency from a single reference image.</p>
             <p>
                 <a href="https://www.charforge.dev" class="text-red-900 no-underline mr-2 hover:underline">demo</a> /&nbsp;
                 <a href="https://github.com/RishiDesai/CharForge" class="text-red-900 no-underline mr-2 hover:underline">code</a>

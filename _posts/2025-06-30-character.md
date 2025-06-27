@@ -76,13 +76,14 @@ If you want high-quality, full-body character consistency, especially across mul
 
 # Training a LoRA
 
+Training a LoRA on Flux offers the best balance between efficiency and quality, and outperforms all inference-time approaches with respect to character consistency. To train a LoRA, we typically gather a dataset of 10-20 high quality images of the character in various poses, lighting and expressions
+  
+This is straightforward for popular characters and people, where you can easily find diverse high quality images online. But often with AI generated characters, we only have 1 generated image. We  can't train a LoRA on a single image, so we'll need to generate a character sheet. 
+
 <div class="image-flow-container" style="display: flex; align-items: center; justify-content: center; gap: 2rem; max-width: 700px; margin: 0.5rem auto 0 auto; padding-top: 0.05rem; padding-bottom: 0;">
     <img src="/assets/images/character/trainlora.jpg" alt="Character sheet" style="width: 100%; height: auto;">
 </div> 
 
-Training a LoRA on Flux offers the best balance between efficiency and quality, and outperforms all inference-time approaches with respect to character consistency. To train a LoRA, we typically gather a dataset of 10-20 high quality images of the character in various poses, lighting and expressions
-  
-This is straightforward for popular characters and people, where you can easily find diverse high quality images online. But often with AI generated characters, we only have 1 generated image. We  can't train a LoRA on a single image, so we'll need to generate a character sheet. 
 
 ### What's a Character Sheet?
 
@@ -90,9 +91,4 @@ A character sheet is a curated collection of images depicting a character from m
 
 The character sheet must contain diverse but consistent visual information about the character. This ensures that the trained model can accurately reproduce the character's unique features, such as facial attributes, clothing, and accessories, across  generated images.
 
-Since we only have one image of the character, we'll need to synthetically generate the entire character sheet.
-
-
-
-
-
+Since we only have one image of the character, CharForge synthetically generates the entire character sheet.
