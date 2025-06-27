@@ -1,7 +1,7 @@
 ---
 layout: post-with-toc
 title: "CharForge: character consistency with one reference"
-description: "A guide for image captioning and prompt optimization"
+description: "A guide for achieving character consistency from a single reference image."
 author: "Rishi Desai"
 date: 2025-06-30 00:00:00 -0700
 categories: ai image-generation loras flux
