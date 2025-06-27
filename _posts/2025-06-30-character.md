@@ -91,4 +91,7 @@ A character sheet is a curated collection of images depicting a character from m
 
 The character sheet must contain diverse but consistent visual information about the character. This ensures that the trained model can accurately reproduce the character's unique features, such as facial attributes, clothing, and accessories, across  generated images.
 
-Since we only have one image of the character, CharForge synthetically generates the entire character sheet.
+# CharForge
+We only have one image of the character, so CharForge synthetically generates the entire character sheet. 
+
+More information on the character sheet generation process will be added soon! 
